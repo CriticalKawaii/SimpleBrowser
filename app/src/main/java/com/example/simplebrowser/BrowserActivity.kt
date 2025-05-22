@@ -1,19 +1,21 @@
 package com.example.simplebrowser
 
-import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
-import android.webkit.WebView;
+import android.net.Uri
+import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.ComponentActivity
 
-class BrowserActivity : ComponentActivity {
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.browser);
+class BrowserActivity : ComponentActivity() {
+  override fun onCreate(savedInstanceState: Bundle?){
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.browser)
 
-    WebView webView = (WebView) findViewById(R.id.webView);
-    webView.setWebViewClient(new WebViewClient());
-    Uri data = getIntent().getData();
-    webView.loadUrl(data.toString());
+    val webView: WebView = findViewById(R.id.webView)
+    webView.webViewClient = WebViewClient()
+    webView.settings.javaScriptEnabled = true
+
+    val data: Uri? = intent.data
+    data?.let {webView.loadUrl(it.toString())}
   }
 }
